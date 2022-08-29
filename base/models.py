@@ -1,10 +1,10 @@
-from email.policy import default
 from django.template.defaultfilters import slugify
+from datetime import datetime
 from django.db import models
 
 # Create your models here.
 class Poll(models.Model):
-    img = models.ImageField(blank=True, null=True, upload_to='vote_img')
+    poll_img = models.ImageField(blank=True, null=True, upload_to='vote_img')
     question = models.TextField(max_length=65)
     question_slug = models.SlugField(default=None)
     question_one = models.CharField(max_length=30)
@@ -13,6 +13,7 @@ class Poll(models.Model):
     question_one_count = models.IntegerField(default=0)
     question_two_count = models.IntegerField(default=0)
     question_three_count = models.IntegerField(default=0)   
+    date_created = models.DateField(default=datetime.now, blank=True, null=True)
 
     def __str__(self):
         return self.question[:50]

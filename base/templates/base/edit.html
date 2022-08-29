@@ -9,8 +9,12 @@
 {% block content %}
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <h2>Edit</h2>
-    {% render_field form.img class='img-fluid'%}    
+    <div class="col">
+        <img src="{{ poll.poll_img.url }}" alt="" class="rounded" style="width: 10rem;">    
+    </div>
+    <div class="col">
+        {% render_field form.poll_img class='img-fluid'%}    
+    </div>
     {% render_field form.question class='form-control' rows=3 placeholder='ex. What is your favorite color?' %}    
 
     <div class="d-flex justify-content-between my-3">

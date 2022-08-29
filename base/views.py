@@ -7,8 +7,8 @@ from .models import Poll
 # Create your views here.
 def home(request):
     poll_list = Poll.objects.all()
-    
-    context = {'poll_list': poll_list}
+    total_polls = poll_list.count()
+    context = {'poll_list': poll_list, 'total_polls': total_polls}
     return render(request, 'base/home.html', context)
 
 def create(request):
@@ -24,9 +24,6 @@ def create(request):
 
 def vote(request, poll_slug):
     poll = Poll.objects.get(question_slug=poll_slug)
-    if poll.img:
-        print('poll_img:', poll.img)
-    print('poll:', poll.img)
     submit_succeed = False
     if request.method == 'POST':
         answer_selected = request.POST.get('poll')

@@ -19,8 +19,8 @@
 
     <form method="POST">
         {% csrf_token %} 
-        {% if poll.img %}
-            <img src="{{ poll.img.url }}" alt="" class="img-fluid" style="width: 20rem;">                                   
+        {% if poll.poll_img %}
+            <img src="{{ poll.poll_img.url }}" alt="" class="img-fluid" style="width: 20rem;">                                   
         {% endif %}               
         <h4>{{ poll.question }}</h4>
         <div class="my-3"> 
