@@ -23,10 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', base_view.home, name='home'),
     path('create/', base_view.create, name='create'),
-    path('vote/<slug:poll_slug>/', base_view.vote, name='vote'),
-    path('result/<slug:poll_slug>/', base_view.result, name='result'),
-    path('edit/<slug:poll_slug>/', base_view.edit, name='edit'),
-    path('delete/<slug:poll_slug>/', base_view.delete, name='delete'),
+    path('vote/<slug:poll_slug>/<uuid:poll_uuid>/', base_view.vote, name='vote'),
+    path('result/<slug:poll_slug>/<uuid:poll_uuid>/', base_view.result, name='result'),
+    path('edit/<slug:poll_slug>/<uuid:poll_uuid>/', base_view.edit, name='edit'),
+    path('delete/<slug:poll_slug>/<uuid:poll_uuid>/', base_view.delete, name='delete'),
+    path('clear_selected_count/<slug:poll_slug>/<uuid:poll_uuid>/', base_view.clear_selected_count, name='clear_selected_count'),    
 ]
 
 if settings.DEBUG:

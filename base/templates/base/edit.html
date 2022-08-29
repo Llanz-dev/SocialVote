@@ -8,10 +8,12 @@
 
 {% block content %}
 <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="col">
-        <img src="{{ poll.poll_img.url }}" alt="" class="rounded" style="width: 10rem;">    
-    </div>
+    {% csrf_token %}    
+    {% if poll.poll_img %}                
+        <div class="col">
+            <img src="{{ poll.poll_img.url }}" alt="" class="rounded" style="width: 15rem;">    
+        </div>
+    {% endif %}
     <div class="col">
         {% render_field form.poll_img class='img-fluid'%}    
     </div>
@@ -21,9 +23,10 @@
         {% render_field form.question_one class='form-control' placeholder='ex. White' %}
         {% render_field form.question_two class='form-control mx-2' placeholder='ex. Black' %}
         {% render_field form.question_three class='form-control' placeholder='ex. Other' %}
-    </div>
+    </div>    
     <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-light">Back</a>
     <button type="submit" class="btn btn-dark">Edit</button>
+    <small class="d-block mt-1">Do you want to clear the selected counts? click <a href="{% url 'clear_selected_count' poll.question_slug poll.poll_uuid %}">here</a></small>
 </form>
 {% endblock content %}
     

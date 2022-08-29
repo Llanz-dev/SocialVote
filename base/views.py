@@ -22,8 +22,8 @@ def create(request):
     context = {'form': form}
     return render(request, 'base/create.html', context)
 
-def vote(request, poll_slug):
-    poll = Poll.objects.get(question_slug=poll_slug)
+def vote(request, poll_slug, poll_uuid):
+    poll = Poll.objects.get(poll_uuid=poll_uuid)
     submit_succeed = False
     if request.method == 'POST':
         answer_selected = request.POST.get('poll')
@@ -41,21 +41,21 @@ def vote(request, poll_slug):
 
         if submit_succeed:
             poll.save()        
-            return redirect('result', poll.question_slug)
+            return redirect('result', poll.question_slug, poll.poll_uuid)
     
     context = {'poll': poll}
     return render(request, 'base/vote.html', context)
 
-def result(request, poll_slug):
-    poll = Poll.objects.get(question_slug=poll_slug)
+def result(request, poll_slug, poll_uuid):
+    poll = Poll.objects.get(poll_uuid=poll_uuid)
     
     context = {'poll': poll}
     return render(request, 'base/result.html', context)
 
-def edit(request, poll_slug):
-    poll = Poll.objects.get(question_slug=poll_slug)
+def edit(request, poll_slug, poll_uuid):
+    poll = Poll.objects.get(poll_uuid=poll_uuid)
     form = PollForm(instance=poll)
-    if request.method == 'POST':
+    if request.method == 'POST':             
         form = PollForm(request.POST, request.FILES, instance=poll)
         if form.is_valid():
             messages.success(request, 'Successfully edited')
@@ -65,6 +65,15 @@ def edit(request, poll_slug):
     context = {'poll': poll, 'form': form}
     return render(request, 'base/edit.html', context)
 
-def delete(request, poll_slug):
-    Poll.objects.get(question_slug=poll_slug).delete()
+def clear_selected_count(request, poll_slug, poll_uuid):
+    poll = Poll.objects.get(poll_uuid=poll_uuid)
+    poll.question_one_count = 0
+    poll.question_two_count = 0
+    poll.question_three_count = 0
+    messages.success(request, 'Selected counts has been restart')        
+    poll.save()
+    return redirect('result', poll.question_slug, poll.poll_uuid)
+
+def delete(request, poll_slug, poll_uuid):
+    Poll.objects.get(poll_uuid=poll_uuid).delete()
     return redirect('home')

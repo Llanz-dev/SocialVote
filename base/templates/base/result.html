@@ -4,9 +4,18 @@
 {% block header %}
     Poll result
 {% endblock header %}
-    
+
 
 {% block content %}
+    {% if messages %}
+    {% for message in messages %}        
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}                        
+            <div class="alert alert-success">
+              {{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+    {% endif %} 
     {% if poll.poll_img %}
         <img src="{{ poll.poll_img.url }}" alt="" class="img-fluid rounded" style="width: 20rem;">                                   
     {% endif %} 
@@ -29,8 +38,8 @@
             {{ poll.question_three }} --- {{ poll.question_three_count }}
         </div>
     </div>
-    <h5>Total: {{ poll.total }}</h5>
-    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-light">Back</a>
+    <h5 class="fw-normal">Total: {{ poll.total }}</h5>
+    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-light">Back</a>
     <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
 {% endblock content %}
     
