@@ -1,0 +1,29 @@
+{% extends 'base/main.html' %}
+
+
+{% block header %}
+    Poll result
+{% endblock header %}
+    
+
+{% block content %}
+    {% if poll.img %}
+    <img src="{{ poll.img.url }}" alt="" class="img-fluid rounded" style="width: 20rem;">                                   
+    {% endif %}  
+    <h4>{{ poll.question }}</h4>
+    <div class="my-3"> 
+        <div>           
+            {{ poll.question_one }} --- {{ poll.question_one_count }}
+        </div>
+        <div class="my-2">
+            {{ poll.question_two }} --- {{ poll.question_two_count }}
+        </div>
+        <div>
+            {{ poll.question_three }} --- {{ poll.question_three_count }}
+        </div>
+    </div>
+    <h5>Total: {{ poll.total }}</h5>
+    <a href="{{request.META.HTTP_REFERER}}" class="btn btn-light">Back</a>
+    <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
+{% endblock content %}
+    

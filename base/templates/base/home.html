@@ -1,0 +1,33 @@
+{% extends 'base/main.html' %}
+
+
+{% block header %}
+    Polls Available
+{% endblock header %}
+    
+
+{% block content %}    
+    {% if messages %}
+        {% for message in messages %}        
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}                        
+                <div class="alert alert-success">
+                  {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %} 
+    {% for data in poll_list %}                
+        <div class="d-flex justify-content-between mt-2">     
+            <div class="w-75">           
+                <h4>{{ data.question }}</h4>
+            </div>
+            <div class="button-div d-flex align-items-center">
+                <a href="{% url 'vote' data.question_slug %}" class="btn btn-dark">Vote</a>
+                <a href="{% url 'result' data.question_slug %}" class="btn btn-light">Result</a>
+                <a href="{% url 'edit' data.question_slug %}" class="btn btn-dark">Edit</a>
+                <a href="{% url 'delete' data.question_slug %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>    
+    {% endfor %}
+{% endblock content %}
+    
