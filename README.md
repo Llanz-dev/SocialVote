@@ -1,1 +1,1 @@
-The total and the count of each question must be zero if the poll is edited.
+Create a "sign in", "sign up" and "log out"

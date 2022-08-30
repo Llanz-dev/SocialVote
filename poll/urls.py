@@ -15,19 +15,13 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 from django.contrib import admin
-from base import views as base_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', base_view.home, name='home'),
-    path('create/', base_view.create, name='create'),
-    path('vote/<slug:poll_slug>/<uuid:poll_uuid>/', base_view.vote, name='vote'),
-    path('result/<slug:poll_slug>/<uuid:poll_uuid>/', base_view.result, name='result'),
-    path('edit/<slug:poll_slug>/<uuid:poll_uuid>/', base_view.edit, name='edit'),
-    path('delete/<slug:poll_slug>/<uuid:poll_uuid>/', base_view.delete, name='delete'),
-    path('clear_selected_count/<slug:poll_slug>/<uuid:poll_uuid>/', base_view.clear_selected_count, name='clear_selected_count'),    
+    path('', include('accounts.urls')),
+    path('home/', include('base.urls'))
 ]
 
 if settings.DEBUG:

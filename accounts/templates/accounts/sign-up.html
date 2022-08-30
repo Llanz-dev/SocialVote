@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% load widget_tweaks %}
+
+{% block header %}
+    Sign Up
+{% endblock header %}
+    
+
+{% block content %}      
+    <form method="POST">
+        {% csrf_token %} 
+        <div class="col-md-8">
+            <label for="username">Username</label>
+            {% render_field form.username class='form-control' %}
+            <label for="username">Email</label>
+            {% render_field form.email class='form-control' %}
+            <label for="username">Password</label>
+            {% render_field form.password1 class='form-control' %}
+            <label for="username">Confirm password</label>
+            {% render_field form.password2 class='form-control' %}
+        </div>
+        <button type="submit" class="btn btn-dark my-3">Submit</button>
+        <small class="d-block mt-1">Already have an account? <a href="{% url 'sign-in' %}">Sign In</a></small>
+    </form>
+{% endblock content %}
+    

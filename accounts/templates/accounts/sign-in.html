@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+
+{% block header %}
+    Sign In
+{% endblock header %}
+    
+
+{% block content %}      
+{% if messages %}
+{% for message in messages %}        
+    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}                        
+        <div class="alert alert-success">
+          {{ message }}
+        </div>
+    {% endif %}
+{% endfor %}
+{% endif %}
+    <form method="POST">
+        {% csrf_token %} 
+        <div class="col-md-8">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control">
+        </div>
+        <input type="hidden" name="next" value="{{ request.GET.next }}">   
+        <button type="submit" class="btn btn-dark my-3">Submit</button>
+        <small class="d-block mt-1">Doesn't have an account? <a href="{% url 'sign-up' %}">Sign Up</a></small>
+    </form>
+{% endblock content %}
+    
