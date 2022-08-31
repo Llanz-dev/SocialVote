@@ -1,1 +1,1 @@
-Create a "sign in", "sign up" and "log out"
+Create a profile with picture

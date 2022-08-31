@@ -1,16 +1,18 @@
-from asyncore import poll
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from .forms import PollForm
 from .models import Poll
 
 # Create your views here.
+@login_required
 def home(request):
     poll_list = Poll.objects.all()
     total_polls = poll_list.count()
     context = {'poll_list': poll_list, 'total_polls': total_polls}
     return render(request, 'base/home.html', context)
 
+@login_required
 def create(request):
     form = PollForm()
     if request.method == 'POST':
@@ -22,6 +24,7 @@ def create(request):
     context = {'form': form}
     return render(request, 'base/create.html', context)
 
+@login_required
 def vote(request, poll_slug, poll_uuid):
     poll = Poll.objects.get(poll_uuid=poll_uuid)
     submit_succeed = False
@@ -46,12 +49,14 @@ def vote(request, poll_slug, poll_uuid):
     context = {'poll': poll}
     return render(request, 'base/vote.html', context)
 
+@login_required
 def result(request, poll_slug, poll_uuid):
     poll = Poll.objects.get(poll_uuid=poll_uuid)
     
     context = {'poll': poll}
     return render(request, 'base/result.html', context)
 
+@login_required
 def edit(request, poll_slug, poll_uuid):
     poll = Poll.objects.get(poll_uuid=poll_uuid)
     form = PollForm(instance=poll)
@@ -65,6 +70,7 @@ def edit(request, poll_slug, poll_uuid):
     context = {'poll': poll, 'form': form}
     return render(request, 'base/edit.html', context)
 
+@login_required
 def clear_selected_count(request, poll_slug, poll_uuid):
     poll = Poll.objects.get(poll_uuid=poll_uuid)
     poll.question_one_count = 0
@@ -74,6 +80,7 @@ def clear_selected_count(request, poll_slug, poll_uuid):
     poll.save()
     return redirect('result', poll.question_slug, poll.poll_uuid)
 
+@login_required
 def delete(request, poll_slug, poll_uuid):
     Poll.objects.get(poll_uuid=poll_uuid).delete()
     return redirect('home')
