@@ -73,12 +73,16 @@ def edit(request, poll_slug, poll_uuid):
 @login_required
 def clear_selected_count(request, poll_slug, poll_uuid):
     poll = Poll.objects.get(poll_uuid=poll_uuid)
-    poll.question_one_count = 0
-    poll.question_two_count = 0
-    poll.question_three_count = 0
-    messages.success(request, 'Selected counts has been restart')        
-    poll.save()
-    return redirect('result', poll.question_slug, poll.poll_uuid)
+    if poll.question_one_count == 0 and poll.question_two_count == 0 and poll.question_three_count == 0:        
+        messages.error(request, 'Selected counts is already zero!')        
+        return redirect('edit', poll.question_slug, poll.poll_uuid)
+    else:
+        poll.question_one_count = 0
+        poll.question_two_count = 0
+        poll.question_three_count = 0
+        messages.success(request, 'Selected counts has been restart')        
+        poll.save()
+        return redirect('result', poll.question_slug, poll.poll_uuid)
 
 @login_required
 def delete(request, poll_slug, poll_uuid):

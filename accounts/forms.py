@@ -1,6 +1,12 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from accounts.models import Profile
 from django.forms import ModelForm
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_picture', 'user']
 
 class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):

@@ -1,32 +1,41 @@
 {% extends 'main.html' %}
 {% load widget_tweaks %}
 
-{% block header %}
-    Edit a poll
-{% endblock header %}
-    
-
-{% block content %}
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}    
-    {% if poll.poll_img %}                
-        <div class="col">
-            <img src="{{ poll.poll_img.url }}" alt="" class="rounded" style="width: 15rem;">    
-        </div>
-    {% endif %}
-    <div class="col">
-        {% render_field form.poll_img class='img-fluid'%}    
+{% block content %}     
+<div class="col-lg-8 col-md-10 col-12">       
+    <div class="border border-dark">
+    <h3 class="bg-dark text-white p-2 text-capitalize">Edit a poll</h3>
+        <form method="POST" enctype="multipart/form-data" class="p-2">
+            {% if messages %}
+                {% for message in messages %}        
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}                        
+                        <div class="alert alert-danger">
+                          {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}     
+            {% csrf_token %}    
+            {% if poll.poll_img %}                
+                <div class="col">
+                    <img src="{{ poll.poll_img.url }}" alt="" class="rounded" style="width: 15rem;">    
+                </div>
+            {% endif %}
+            <div class="col">
+                {% render_field form.poll_img class='img-fluid'%}    
+            </div>
+            {% render_field form.question class='form-control' rows=3 placeholder='ex. What is your favorite color?' %}    
+        
+            <div class="d-flex justify-content-between my-3">
+                {% render_field form.question_one class='form-control' placeholder='ex. White' %}
+                {% render_field form.question_two class='form-control mx-2' placeholder='ex. Black' %}
+                {% render_field form.question_three class='form-control' placeholder='ex. Other' %}
+            </div>    
+            <a href="{% url 'home' %}" class="btn btn-light">Home</a>
+            <button type="submit" class="btn btn-dark">Edit</button>
+            <small class="d-block mt-1">Do you want to clear the selected counts? click <a href="{% url 'clear_selected_count' poll.question_slug poll.poll_uuid %}">here</a></small>
+        </form>
     </div>
-    {% render_field form.question class='form-control' rows=3 placeholder='ex. What is your favorite color?' %}    
-
-    <div class="d-flex justify-content-between my-3">
-        {% render_field form.question_one class='form-control' placeholder='ex. White' %}
-        {% render_field form.question_two class='form-control mx-2' placeholder='ex. Black' %}
-        {% render_field form.question_three class='form-control' placeholder='ex. Other' %}
-    </div>    
-    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-light">Back</a>
-    <button type="submit" class="btn btn-dark">Edit</button>
-    <small class="d-block mt-1">Do you want to clear the selected counts? click <a href="{% url 'clear_selected_count' poll.question_slug poll.poll_uuid %}">here</a></small>
-</form>
-{% endblock content %}
+</div>
+{% endblock content %}    
     

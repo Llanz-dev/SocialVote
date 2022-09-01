@@ -4,23 +4,34 @@
 {% block header %}
     Sign Up
 {% endblock header %}
-    
 
 {% block content %}      
-    <form method="POST">
-        {% csrf_token %} 
-        <div class="col-md-8">
-            <label for="username">Username</label>
-            {{ form.username|as_crispy_field }}
-            <label for="username">Email</label>
-            {{ form.email|as_crispy_field }}
-            <label for="username">Password</label>
-            {{ form.password1|as_crispy_field }}
-            <label for="username">Confirm password</label>
-            {{ form.password2|as_crispy_field }}
+<div class="col-lg-5 col-md-8 col-12">       
+    <div class="border border-dark">
+    <h3 class="bg-dark text-white p-2 text-capitalize">Sign Up</h3>
+      <div class="p-2">       
+            {% if messages %}
+            {% for message in messages %}        
+                    <div class="alert alert-info">
+                      {{ message }}
+                    </div>
+            {% endfor %}
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %} 
+                <label for="username">Username</label>
+                {{ form.username|as_crispy_field }}
+                <label for="username">Email</label>
+                {{ form.email|as_crispy_field }}
+                <label for="username">Password</label>
+                {{ form.password1|as_crispy_field }}
+                <label for="username">Confirm password</label>
+                {{ form.password2|as_crispy_field }}
+                <button type="submit" class="btn btn-dark my-3">Submit</button>
+                <small class="d-block mt-1">Doesn't have an account? <a href="{% url 'sign-in' %}">Sign In</a></small>
+            </form>
         </div>
-        <button type="submit" class="btn btn-dark my-3">Submit</button>
-        <small class="d-block mt-1">Already have an account? <a href="{% url 'sign-in' %}">Sign In</a></small>
-    </form>
+    </div>
+</div>
 {% endblock content %}
     

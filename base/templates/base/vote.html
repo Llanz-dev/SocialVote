@@ -1,43 +1,41 @@
 {% extends 'main.html' %}
 {% load widget_tweaks %}
 
-{% block header %}
-    Cast your vote
-{% endblock header %}
-    
-
-{% block content %}    
-    {% if messages %}
-        {% for message in messages %}        
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}                        
-                <div class="alert alert-danger">
-                  {{ message }}
+{% block content %}     
+<div class="col-lg-8 col-md-10 col-12">       
+    <div class="border border-dark">
+    <h3 class="bg-dark text-white p-2 text-capitalize">Cast your vote</h3>
+        <form method="POST" class="p-2">
+            {% if messages %}
+                {% for message in messages %}        
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}                        
+                        <div class="alert alert-danger">
+                          {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}     
+            {% csrf_token %} 
+            {% if poll.poll_img %}
+                <img src="{{ poll.poll_img.url }}" alt="" class="img-fluid" style="width: 20rem;">                                   
+            {% endif %}               
+            <h4>{{ poll.question }}</h4>
+            <div class="my-3"> 
+                <div>           
+                    <input type="radio" name="poll" value="option1">
+                    {{ poll.question_one }}
                 </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}     
-
-    <form method="POST">
-        {% csrf_token %} 
-        {% if poll.poll_img %}
-            <img src="{{ poll.poll_img.url }}" alt="" class="img-fluid" style="width: 20rem;">                                   
-        {% endif %}               
-        <h4>{{ poll.question }}</h4>
-        <div class="my-3"> 
-            <div>           
-                <input type="radio" name="poll" value="option1">
-                {{ poll.question_one }}
+                <div class="my-2">
+                    <input type="radio" name="poll" value="option2">
+                    {{ poll.question_two }}
+                </div>
+                <div>
+                    <input type="radio" name="poll" value="option3">
+                    {{ poll.question_three }}
+                </div>
             </div>
-            <div class="my-2">
-                <input type="radio" name="poll" value="option2">
-                {{ poll.question_two }}
-            </div>
-            <div>
-                <input type="radio" name="poll" value="option3">
-                {{ poll.question_three }}
-            </div>
-        </div>
-        <button type="submit" class="btn btn-dark">Submit</button>
-    </form>
-{% endblock content %}
-    
+            <button type="submit" class="btn btn-dark">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}    

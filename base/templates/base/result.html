@@ -1,45 +1,45 @@
 {% extends 'main.html' %}
 
-
-{% block header %}
-    Poll result
-{% endblock header %}
-
-
-{% block content %}
-    {% if messages %}
-    {% for message in messages %}        
-        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}                        
-            <div class="alert alert-success">
-              {{ message }}
+{% block content %}     
+<div class="col-lg-8 col-md-10 col-12">       
+    <div class="border border-dark">
+    <h3 class="bg-dark text-white p-2 text-capitalize">Poll result</h3>
+        <div class="p-2">
+            {% if messages %}
+                {% for message in messages %}        
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}                        
+                        <div class="alert alert-success">
+                          {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %} 
+            {% if poll.poll_img %}
+                <img src="{{ poll.poll_img.url }}" alt="" class="img-fluid rounded" style="width: 20rem;">                                   
+            {% endif %} 
+            <div class="row">
+                <div class="col-8">
+                    <h4>{{ poll.question }}</h4>            
+                </div>
+                <div class="col-4 align-self-center">
+                    <div class="">Created: {{ poll.date_created }} </div>
+                </div>
             </div>
-        {% endif %}
-    {% endfor %}
-    {% endif %} 
-    {% if poll.poll_img %}
-        <img src="{{ poll.poll_img.url }}" alt="" class="img-fluid rounded" style="width: 20rem;">                                   
-    {% endif %} 
-    <div class="row">
-        <div class="col-8">
-            <h4>{{ poll.question }}</h4>            
-        </div>
-        <div class="col-4 align-self-center">
-            <div class="">Created: {{ poll.date_created }} </div>
-        </div>
-    </div>
-    <div class="my-3"> 
-        <div>           
-            {{ poll.question_one }} --- {{ poll.question_one_count }}
-        </div>
-        <div class="my-2">
-            {{ poll.question_two }} --- {{ poll.question_two_count }}
-        </div>
-        <div>
-            {{ poll.question_three }} --- {{ poll.question_three_count }}
+            <div class="my-3"> 
+                <div>           
+                    {{ poll.question_one }} --- {{ poll.question_one_count }}
+                </div>
+                <div class="my-2">
+                    {{ poll.question_two }} --- {{ poll.question_two_count }}
+                </div>
+                <div>
+                    {{ poll.question_three }} --- {{ poll.question_three_count }}
+                </div>
+            </div>
+            <h5 class="fw-normal">Total: {{ poll.total }}</h5>
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-light">Back</a>
+            <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
         </div>
     </div>
-    <h5 class="fw-normal">Total: {{ poll.total }}</h5>
-    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-light">Back</a>
-    <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
-{% endblock content %}
-    
+</div>
+{% endblock content %}    
