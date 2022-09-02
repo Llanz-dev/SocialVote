@@ -3,11 +3,14 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from .forms import PollForm
 from .models import Poll
+from accounts.models import Profile
 
 # Create your views here.
 @login_required
 def home(request):
     poll_list = Poll.objects.all()
+    user_profile = Profile.objects.all()
+    print(user_profile)
     total_polls = poll_list.count()
     context = {'poll_list': poll_list, 'total_polls': total_polls}
     return render(request, 'base/home.html', context)

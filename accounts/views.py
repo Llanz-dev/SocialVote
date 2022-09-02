@@ -1,7 +1,9 @@
+from email import message
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import SignUpForm
+from .forms import ProfileForm, SignUpForm, UserUpdateForm
+from .models import Profile
 
 # Create your views here.
 def sign_in(request):
@@ -17,7 +19,7 @@ def sign_in(request):
             else:
                 return redirect('home')
         else:
-            messages.info(request, 'username or password is incorrect')
+            messages.error(request, 'username or password is incorrect')
             
     if request.user.is_authenticated:
         return redirect('home')
@@ -29,7 +31,8 @@ def sign_up(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            user_account = form.save()
+            Profile.objects.create(user=user_account)            
             messages.success(request, 'Sign up successfully')
             return redirect('sign-in')
 
@@ -38,6 +41,24 @@ def sign_up(request):
         return redirect('home')
     else:
         return render(request, 'accounts/sign-up.html', context)
+
+def profile(request):    
+    profile_obj = Profile.objects.get(user=request.user)
+    profile_form = ProfileForm(instance=request.user.profile)
+    user_form = UserUpdateForm(instance=request.user)
+    profile_image_url = profile_obj.profile_picture.url
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        if profile_form.is_valid() and user_form.is_valid():
+            profile_form.save()
+            user_form.save()
+            username = user_form.cleaned_data.get('username')
+            messages.success(request, f'{username}, your account has been updated!')
+            return redirect('profile')
+    
+    context = {'profile_form': profile_form, 'user_form': user_form, 'profile_image_url': profile_image_url}
+    return render(request, 'accounts/profile.html', context)
 
 def sign_out(request):
     logout(request)

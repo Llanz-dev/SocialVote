@@ -3,10 +3,15 @@ from django.contrib.auth.models import User
 from accounts.models import Profile
 from django.forms import ModelForm
 
+class UserUpdateForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['profile_picture', 'user']
+        fields = ['profile_picture']
 
 class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):

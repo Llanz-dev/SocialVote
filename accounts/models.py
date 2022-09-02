@@ -7,7 +7,7 @@ import uuid
 # Create your models here.
 class Profile(models.Model):
     profile_uuid = models.UUIDField(default=uuid.uuid4)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(default='default.jpg', upload_to='profile_pics', blank=True, null=True)    
     profile_slug = models.SlugField(unique=True, default=None)
 
@@ -15,7 +15,7 @@ class Profile(models.Model):
         return f'{self.user.username} profile'
 
     def save(self, *args, **kwargs):
-        self.user_name = slugify(self.user.first_name)        
+        self.profile_slug = slugify(self.user.first_name)        
         super(Profile, self).save(*args, **kwargs)
         img = Image.open(self.profile_picture.path)
 

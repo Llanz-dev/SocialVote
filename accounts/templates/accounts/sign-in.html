@@ -1,17 +1,21 @@
 {% extends 'main.html' %}
-{% block header %}
-    Sign In
-{% endblock header %}
+
 {% block content %}      
 <div class="col-lg-5 col-md-8 col-12">       
     <div class="border border-dark">
     <h3 class="bg-dark text-white p-2 text-capitalize">Sign In</h3>
       <div class="p-2">       
             {% if messages %}
-            {% for message in messages %}        
-                    <div class="alert alert-info">
-                      {{ message }}
+            {% for message in messages %}                       
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}                                    
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>    
+                {% else %}
+                    <div class="alert alert-success">
+                        {{ message }}
                     </div>
+                {% endif %}
             {% endfor %}
             {% endif %}
             <form method="POST">

@@ -21,8 +21,12 @@
                 {% csrf_token %} 
                 <label for="username">Username</label>
                 {{ form.username|as_crispy_field }}
-                <label for="username">Email</label>
+                <label for="email">Email</label>
                 {{ form.email|as_crispy_field }}
+                <label for="first name">First name</label>
+                {{ form.first_name|as_crispy_field }}
+                <label for="last name">Last name</label>
+                {{ form.last_name|as_crispy_field }}
                 <label for="username">Password</label>
                 {{ form.password1|as_crispy_field }}
                 <label for="username">Confirm password</label>
