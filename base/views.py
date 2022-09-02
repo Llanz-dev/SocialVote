@@ -8,7 +8,7 @@ from accounts.models import Profile
 # Create your views here.
 @login_required
 def home(request):
-    poll_list = Poll.objects.all()
+    poll_list = Poll.objects.all().order_by('-id')
     user_profile = Profile.objects.all()
     print(user_profile)
     total_polls = poll_list.count()
@@ -18,10 +18,13 @@ def home(request):
 @login_required
 def create(request):
     form = PollForm()
+    profile_form = Profile.objects.get(user=request.user)
     if request.method == 'POST':
         form = PollForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            instance.poll_creator = profile_form
+            instance.save()
             return redirect('home')
         
     context = {'form': form}

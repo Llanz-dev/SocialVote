@@ -1,10 +1,12 @@
 from django.template.defaultfilters import slugify
+from accounts.models import Profile
 from datetime import datetime
 from django.db import models
 import uuid
 
 # Create your models here.
 class Poll(models.Model):
+    poll_creator = models.OneToOneField(Profile, null=True, on_delete=models.CASCADE)
     poll_uuid = models.UUIDField(default=uuid.uuid4)
     poll_img = models.ImageField(blank=True, null=True, upload_to='vote_img')
     question = models.TextField(max_length=65)

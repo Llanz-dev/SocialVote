@@ -1,1 +1,1 @@
-Create a profile with picture
+Create a link page on each poll_creator
