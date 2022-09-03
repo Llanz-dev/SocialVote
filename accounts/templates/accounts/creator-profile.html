@@ -17,10 +17,12 @@
             {% endfor %}
             {% endif %}
             <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="text-center mb-1">
-                    <img src="{{ profile_image_url }}" alt="" class="image-fluid rounded">
-                </div>
+                {% csrf_token %}                
+                {% if profile_image_url %}
+                    <div class="text-center mb-1">
+                        <img src="{{ profile_image_url }}" alt="" class="image-fluid rounded">
+                    </div>
+                {% endif %}                    
                 <br>
                 <p><span class="fw-bold">Username:</span> {{ user_profile.user.username }}</p>
                 <p><span class="fw-bold">First name:</span> {{ user_profile.user.first_name }}</p>
