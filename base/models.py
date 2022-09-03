@@ -3,10 +3,11 @@ from accounts.models import Profile
 from datetime import datetime
 from django.db import models
 import uuid
+import json
 
 # Create your models here.
 class Poll(models.Model):
-    poll_creator = models.ForeignKey(Profile, null=True, on_delete=models.CASCADE)
+    poll_creator = models.ForeignKey(Profile, null=True, on_delete=models.CASCADE)    
     poll_uuid = models.UUIDField(default=uuid.uuid4)
     poll_img = models.ImageField(blank=True, null=True, upload_to='vote_img')
     question = models.TextField(max_length=65)
@@ -21,6 +22,12 @@ class Poll(models.Model):
 
     def __str__(self):
         return self.question[:50]
+
+    def set_foo(self, x):
+        self.foo = json.dumps(x)
+
+    def get_foo(self):
+        return json.loads(self.foo)
     
     def total(self):
         return self.question_one_count + self.question_two_count + self.question_three_count

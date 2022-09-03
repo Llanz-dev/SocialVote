@@ -6,6 +6,8 @@
     <div class="border border-dark">
     <h3 class="bg-dark text-white p-2 text-capitalize">Edit a poll</h3>
         <form method="POST" enctype="multipart/form-data" class="p-2">
+            
+            {% if creator == current_signed_in %}
             {% if messages %}
                 {% for message in messages %}        
                     {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}                        
@@ -34,6 +36,10 @@
             <a href="{% url 'home' %}" class="btn btn-light">Home</a>
             <button type="submit" class="btn btn-dark">Edit</button>
             <small class="d-block mt-1">Do you want to clear the selected counts? click <a href="{% url 'clear_selected_count' poll.question_slug poll.poll_uuid %}">here</a></small>
+            {% else %}                            
+                <h2>Oooopsss. You are not the owner of this poll <span class="text-danger">!</span></h2>
+                <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
+            {% endif %}
         </form>
     </div>
 </div>

@@ -20,7 +20,7 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="text-center mb-1">
-                    <img src="{{ profile_image_url }}" alt="" class="image-fluid">
+                    <img src="{{ profile_image_url }}" alt="" class="image-fluid rounded">
                 </div>
                 {{ profile_form.profile_picture|as_crispy_field }}
                 <br>

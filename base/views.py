@@ -9,7 +9,6 @@ from accounts.models import Profile
 @login_required
 def home(request):
     poll_list = Poll.objects.all().order_by('-id')
-    user_profile = Profile.objects.all()
     total_polls = poll_list.count()
     context = {'poll_list': poll_list, 'total_polls': total_polls}
     return render(request, 'base/home.html', context)
@@ -32,6 +31,8 @@ def create(request):
 @login_required
 def vote(request, poll_slug, poll_uuid):
     poll = Poll.objects.get(poll_uuid=poll_uuid)
+    current_signed_in = request.user.profile.profile_uuid
+    creator = poll.poll_creator.profile_uuid  
     submit_succeed = False
     if request.method == 'POST':
         answer_selected = request.POST.get('poll')
@@ -51,7 +52,7 @@ def vote(request, poll_slug, poll_uuid):
             poll.save()        
             return redirect('result', poll.question_slug, poll.poll_uuid)
     
-    context = {'poll': poll}
+    context = {'poll': poll, 'current_signed_in': current_signed_in, 'creator': creator}
     return render(request, 'base/vote.html', context)
 
 @login_required
@@ -65,6 +66,8 @@ def result(request, poll_slug, poll_uuid):
 def edit(request, poll_slug, poll_uuid):
     poll = Poll.objects.get(poll_uuid=poll_uuid)
     form = PollForm(instance=poll)
+    current_signed_in = request.user.profile.profile_uuid
+    creator = poll.poll_creator.profile_uuid    
     if request.method == 'POST':             
         form = PollForm(request.POST, request.FILES, instance=poll)
         if form.is_valid():
@@ -72,7 +75,7 @@ def edit(request, poll_slug, poll_uuid):
             form.save()
             return redirect('home')
 
-    context = {'poll': poll, 'form': form}
+    context = {'poll': poll, 'form': form, 'current_signed_in': current_signed_in, 'creator': creator}
     return render(request, 'base/edit.html', context)
 
 @login_required
