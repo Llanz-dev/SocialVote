@@ -10,7 +10,6 @@ from accounts.models import Profile
 def home(request):
     poll_list = Poll.objects.all().order_by('-id')
     user_profile = Profile.objects.all()
-    print(user_profile)
     total_polls = poll_list.count()
     context = {'poll_list': poll_list, 'total_polls': total_polls}
     return render(request, 'base/home.html', context)
@@ -26,10 +25,10 @@ def create(request):
             instance.poll_creator = profile_form
             instance.save()
             return redirect('home')
-        
+
     context = {'form': form}
     return render(request, 'base/create.html', context)
-
+        
 @login_required
 def vote(request, poll_slug, poll_uuid):
     poll = Poll.objects.get(poll_uuid=poll_uuid)

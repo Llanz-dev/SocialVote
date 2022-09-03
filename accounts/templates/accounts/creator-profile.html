@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="col-lg-5 col-md-8 col-12">       
+    <div class="border border-dark">
+    <h3 class="bg-dark text-white p-2 text-capitalize">Profile</h3>
+      <div class="p-2">       
+            {% if messages %}
+            {% for message in messages %}                       
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}                        
+                    <div class="alert alert-success">
+                      {{ message }}
+                    </div>          
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="text-center mb-1">
+                    <img src="{{ profile_image_url }}" alt="" class="image-fluid rounded">
+                </div>
+                <br>
+                <p><span class="fw-bold">Username:</span> {{ user_profile.user.username }}</p>
+                <p><span class="fw-bold">First name:</span> {{ user_profile.user.first_name }}</p>
+                <p><span class="fw-bold">Last name:</span> {{ user_profile.user.last_name }}</p>
+                <p><span class="fw-bold">Email:</span> {{ user_profile.user.email }}</p>
+            </form>
+        </div>
+    </div>
+</div>    
+{% endblock content %}
+    

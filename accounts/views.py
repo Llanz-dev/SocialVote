@@ -1,8 +1,9 @@
-from email import message
 from django.contrib.auth import authenticate, login, logout
+from .forms import ProfileForm, SignUpForm, UserUpdateForm
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import ProfileForm, SignUpForm, UserUpdateForm
+from base.models import Poll
 from .models import Profile
 
 # Create your views here.
@@ -26,7 +27,7 @@ def sign_in(request):
     else:
         return render(request, 'accounts/sign-in.html')        
 
-def sign_up(request):
+def sign_up(request):    
     form = SignUpForm()
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -43,10 +44,10 @@ def sign_up(request):
         return render(request, 'accounts/sign-up.html', context)
 
 def profile(request):    
-    profile_obj = Profile.objects.get(user=request.user)
+    user_profile = Profile.objects.get(user=request.user)
     profile_form = ProfileForm(instance=request.user.profile)
     user_form = UserUpdateForm(instance=request.user)
-    profile_image_url = profile_obj.profile_picture.url
+    profile_image_url = user_profile.profile_picture.url
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         user_form = UserUpdateForm(request.POST, instance=request.user)
@@ -59,6 +60,16 @@ def profile(request):
     
     context = {'profile_form': profile_form, 'user_form': user_form, 'profile_image_url': profile_image_url}
     return render(request, 'accounts/profile.html', context)
+
+@login_required
+def creator_profile(request, poll_slug, poll_uuid):
+    poll_list = Poll.objects.get(poll_uuid=poll_uuid)
+    profile_uuid = poll_list.poll_creator.profile_uuid
+    user_profile = Profile.objects.get(profile_uuid=profile_uuid)
+    profile_image_url = user_profile.profile_picture.url
+    
+    context = {'user_profile': user_profile, 'profile_image_url': profile_image_url}
+    return render(request, 'accounts/creator-profile.html', context)
 
 def sign_out(request):
     logout(request)
