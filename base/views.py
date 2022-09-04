@@ -9,8 +9,22 @@ from accounts.models import Profile
 @login_required
 def home(request):
     poll_list = Poll.objects.all().order_by('-id')
+    current_user = request.user    
+    poll_voted = Poll.objects.filter(voted=current_user) 
+    one = []
+    two = []
+    for data in poll_list:
+        one.append(data)
+    for data in poll_voted:        
+        two.append(data)    
+    three = one + two
+    polls = []
+    for data in three:
+        if data in two:
+            continue
+        polls.append(data)
     total_polls = poll_list.count()
-    context = {'poll_list': poll_list, 'total_polls': total_polls}
+    context = {'polls': polls, 'total_polls': total_polls}
     return render(request, 'base/home.html', context)
 
 @login_required
@@ -49,6 +63,7 @@ def vote(request, poll_slug, poll_uuid):
             messages.error(request, 'Please select your answer')
 
         if submit_succeed:
+            poll.voted.add(request.user)
             poll.save()        
             return redirect('result', poll.question_slug, poll.poll_uuid)
     

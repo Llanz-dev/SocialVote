@@ -1,4 +1,5 @@
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 from accounts.models import Profile
 from datetime import datetime
 from django.db import models
@@ -15,6 +16,7 @@ class Poll(models.Model):
     question_one = models.CharField(max_length=30)
     question_two = models.CharField(max_length=30)
     question_three = models.CharField(max_length=30)
+    voted = models.ManyToManyField(User, related_name='user_voted', null=True)
     question_one_count = models.IntegerField(default=0)
     question_two_count = models.IntegerField(default=0)
     question_three_count = models.IntegerField(default=0)   
