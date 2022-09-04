@@ -10,7 +10,6 @@ Screenshots
 ![Alt text](screenshots/create.png?raw=true "Optional Title")
 ![Alt text](screenshots/home.png?raw=true "Optional Title")
 ![Alt text](screenshots/profile.png?raw=true "Optional Title")
-![Alt text](screenshots/creator-profile.png?raw=true "Optional Title")
 ![Alt text](screenshots/edit.png?raw=true "Optional Title")
 ![Alt text](screenshots/vote.png?raw=true "Optional Title")
 ![Alt text](screenshots/result.png?raw=true "Optional Title")
