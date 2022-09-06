@@ -16,14 +16,14 @@
                     {% endif %}
                 {% endfor %}
             {% endif %} 
-            {% for data in polls %}                
+            {% for data in poll_list %}                
                 <div class="d-flex justify-content-between mt-2">     
                     <div class="w-75">           
                         <h4>{{ data.question }}</h4>
                         <small><a href="{% url 'creator-profile' data.question_slug data.poll_uuid %}" class="text-decoration-none">{{ data.poll_creator.user.username }}</a></small>
                     </div>
                     <div class="button-div d-flex align-items-center">
-                        {% if data.poll_creator.user.username != request.user.username %}
+                        {% if data.poll_creator.user.username != request.user.username and not request.user in data.voted.all %}                                                                            
                             <a href="{% url 'vote' data.question_slug data.poll_uuid %}" class="btn btn-dark">Vote</a>
                         {% endif %}
                         <a href="{% url 'result' data.question_slug data.poll_uuid %}" class="btn btn-light">Result</a>                        

@@ -2,7 +2,7 @@ Poll Application is where you can create a poll. You can only vote at others' on
 
 The technology used are the following: HTML, Bootstrap and Django.
 
-To run this project do the following: clone it Open and type this "venv/Scripts/activate" Then run "python manage.py runserver"
+To run this project do the following: clone it open the CMD in project and then enter each one of the following: "virtual venv", "pip install django", "pip install Pillow", "pip install django-crispy-forms", "pip install django-widget-tweaks". Then run "python manage.py runserver"
 
 Screenshots
 ![Alt text](screenshots/sign-in.png?raw=true "Optional Title")

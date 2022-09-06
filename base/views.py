@@ -18,13 +18,13 @@ def home(request):
     for data in poll_voted:        
         two.append(data)    
     three = one + two
-    polls = []
-    for data in three:
-        if data in two:
-            continue
-        polls.append(data)
+    for data in poll_list:
+        print(data)
+        if request.user in data.voted.all():
+            print(0000)
+        
     total_polls = poll_list.count()
-    context = {'polls': polls, 'total_polls': total_polls}
+    context = {'poll_list': poll_list, 'total_polls': total_polls}
     return render(request, 'base/home.html', context)
 
 @login_required
