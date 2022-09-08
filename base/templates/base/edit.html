@@ -23,11 +23,10 @@
                     <img src="{{ poll.poll_img.url }}" alt="" class="rounded" style="width: 15rem;">    
                 </div>
             {% endif %}
-            <div class="col">
+            <div class="col mb-3">
                 {% render_field form.poll_img class='img-fluid'%}    
             </div>
-            {% render_field form.question class='form-control' rows=3 placeholder='ex. What is your favorite color?' %}    
-        
+            {% render_field form.question class='form-control' rows=3 placeholder='ex. What is your favorite color?' %}            
             <div class="d-flex justify-content-between my-3">
                 {% render_field form.question_one class='form-control' placeholder='ex. White' %}
                 {% render_field form.question_two class='form-control mx-2' placeholder='ex. Black' %}
@@ -35,7 +34,7 @@
             </div>    
             <a href="{% url 'home' %}" class="btn btn-light">Home</a>
             <button type="submit" class="btn btn-dark">Edit</button>
-            <small class="d-block mt-1">Do you want to clear the selected counts? click <a href="{% url 'clear_selected_count' poll.question_slug poll.poll_uuid %}">here</a></small>
+            <small class="d-block mt-2">Do you want to clear the selected counts? click <a href="{% url 'clear_selected_count' poll.question_slug poll.poll_uuid %}">here</a></small>
             {% else %}                            
                 <h2>Oooopsss. You are not the owner of this poll <span class="text-danger">!</span></h2>
                 <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
