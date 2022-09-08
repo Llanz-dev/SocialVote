@@ -9,7 +9,12 @@
             {% if creator == current_signed_in %}
                 <h2>Oooopsss. You are the owner of this poll <span class="text-danger">!</span></h2>
                 <h3>You can not vote</h3>
-            <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
+                <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
+            {% elif request.user in poll.voted.all %}
+                <h2>Oooopsss. You already vote <span class="text-danger">!</span></h2>
+                <h3>You can only vote once {{ request.user.first_name }}</h3>
+                <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
+                <a href="{% url 'result' poll.question_slug poll.poll_uuid %}" class="btn btn-light">Result</a>
             {% else %}
                 {% if messages %}
                     {% for message in messages %}        

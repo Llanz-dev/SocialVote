@@ -62,9 +62,7 @@ def profile(request):
     return render(request, 'accounts/profile.html', context)
 
 @login_required
-def creator_profile(request, poll_slug, poll_uuid):
-    poll_list = Poll.objects.get(poll_uuid=poll_uuid)
-    profile_uuid = poll_list.poll_creator.profile_uuid
+def creator_profile(request, profile_slug, profile_uuid):
     user_profile = Profile.objects.get(profile_uuid=profile_uuid)
     profile_image_url = user_profile.profile_picture.url
     

@@ -9,21 +9,8 @@ from accounts.models import Profile
 @login_required
 def home(request):
     poll_list = Poll.objects.all().order_by('-id')
-    current_user = request.user    
-    poll_voted = Poll.objects.filter(voted=current_user) 
-    one = []
-    two = []
-    for data in poll_list:
-        one.append(data)
-    for data in poll_voted:        
-        two.append(data)    
-    three = one + two
-    for data in poll_list:
-        print(data)
-        if request.user in data.voted.all():
-            print(0000)
-        
     total_polls = poll_list.count()
+    
     context = {'poll_list': poll_list, 'total_polls': total_polls}
     return render(request, 'base/home.html', context)
 
@@ -45,8 +32,11 @@ def create(request):
 @login_required
 def vote(request, poll_slug, poll_uuid):
     poll = Poll.objects.get(poll_uuid=poll_uuid)
+    if request.user in poll.voted.all():
+        return redirect('result', poll.question_slug, poll.poll_uuid)
     current_signed_in = request.user.profile.profile_uuid
-    creator = poll.poll_creator.profile_uuid  
+    creator = poll.poll_creator.profile_uuid      
+ 
     submit_succeed = False
     if request.method == 'POST':
         answer_selected = request.POST.get('poll')
@@ -97,13 +87,14 @@ def edit(request, poll_slug, poll_uuid):
 def clear_selected_count(request, poll_slug, poll_uuid):
     poll = Poll.objects.get(poll_uuid=poll_uuid)
     if poll.question_one_count == 0 and poll.question_two_count == 0 and poll.question_three_count == 0:        
-        messages.error(request, 'Selected counts is already zero!')        
+        messages.error(request, 'Nobody has ever voted yet!')        
         return redirect('edit', poll.question_slug, poll.poll_uuid)
     else:
         poll.question_one_count = 0
         poll.question_two_count = 0
         poll.question_three_count = 0
-        messages.success(request, 'Selected counts has been restart')        
+        messages.success(request, 'Poll has been restart')     
+        poll.voted.clear()   
         poll.save()
         return redirect('result', poll.question_slug, poll.poll_uuid)
 
