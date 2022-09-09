@@ -19,15 +19,15 @@
                 <img src="{{ poll.poll_img.url }}" alt="" class="img-fluid rounded" style="width: 20rem;">                                   
             {% endif %} 
             <div class="row my-3">
-                <div class="col-8">
+                <div class="col-sm-8">
                     <h3>{{ poll.question }}</h3>            
                 </div>
-                <div class="col-4 align-self-center">
+                <div class="col-sm-4 align-self-center">
                     <p class="">Created: {{ poll.date_created }} </p>
                 </div>
             </div>
             <div class="row align-self-center"> 
-                <div class="col-8"> 
+                <div class="col-sm-8"> 
                     <h4>Choices selected:</h4>                    
                     <ul>
                         <li class="border border-dark p-1">{{ poll.question_one }} --- <span class="fw-bold">{{ poll.question_one_count }}</span></li>
@@ -35,16 +35,16 @@
                         <li class="border border-dark p-1">{{ poll.question_three }} --- <span class="fw-bold">{{ poll.question_three_count }}</span></li>
                     </ul>
                 </div>
-                <div class="col-4">
+                <div class="col-sm-4">
                     <h4>Voted:</h4>                    
-                    <ul>                        
+                    <ul class="ex3 border">                        
                         {% for data in poll.voted.all %}                            
                             {% if data == request.user %}
                                 <li class="border border-dark p-1"><a href="{% url 'profile' %}" class="text-decoration-none">{{ data }}</a></li>
                             {% else %}
                                 <li class="border border-dark p-1"><a href="{% url 'creator-profile' data.profile.profile_slug data.profile.profile_uuid %}" class="text-decoration-none">{{ data }}</a></li>
-                            {% endif %}                                
-                        {% endfor %}                                                                                                                                                                            
+                            {% endif %}                                                            
+                        {% endfor %}                                                                                                                                                                                          
                     </ul>
                 </div>
             </div>
