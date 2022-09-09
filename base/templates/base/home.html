@@ -20,18 +20,21 @@
                 <div class="d-flex justify-content-between mt-2">     
                     <div class="w-75">           
                         <h4>{{ data.question }}</h4>
-                        <small><a href="{% url 'creator-profile' data.poll_creator.profile_slug data.poll_creator.profile_uuid %}" class="text-decoration-none">{{ data.poll_creator.user.username }}</a></small>
+                        {% if request.user == data.poll_creator.user %}
+                            <small><a href="{% url 'profile' %}" class="text-decoration-none">@{{ data.poll_creator.user.username }}</a></small>
+                        {% else %}
+                            <small><a href="{% url 'creator-profile' data.poll_creator.profile_slug data.poll_creator.profile_uuid %}" class="text-decoration-none">@{{ data.poll_creator.user.username }}</a></small>
+                        {% endif %}                             
                     </div>
                     <div class="button-div d-flex align-items-center">
                         {% if data.poll_creator.user.username != request.user.username and not request.user in data.voted.all %}                                                                            
-                            <a href="{% url 'vote' data.question_slug data.poll_uuid %}" class="btn btn-dark">Vote</a>
+                            <a href="{% url 'vote' data.question_slug data.poll_uuid %}" class="btn btn-success">Vote</a>
                         {% endif %}
                         {% if data.poll_creator.user.username == request.user.username %}
                             <a href="{% url 'delete' data.question_slug data.poll_uuid %}" class="btn btn-danger">Delete</a>                            
                             <a href="{% url 'edit' data.question_slug data.poll_uuid %}" class="btn btn-dark">Edit</a>
                         {% endif %}
                         <a href="{% url 'result' data.question_slug data.poll_uuid %}" class="btn btn-light">Result</a>                        
-
                     </div>
                 </div>    
             {% endfor %}

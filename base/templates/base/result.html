@@ -17,8 +17,15 @@
                 
             {% if poll.poll_img %}
                 <img src="{{ poll.poll_img.url }}" alt="" class="img-fluid rounded" style="width: 20rem;">                                   
+                <div class="row my-3">                
+            {% else %}
+                <div class="row my-0">                
             {% endif %} 
-            <div class="row my-3">
+                {% if request.user == poll.poll_creator.user %}
+                    <small><a href="{% url 'profile' %}" class="text-decoration-none">@{{ poll.poll_creator.user.username }}</a></small>
+                {% else %}
+                    <small><a href="{% url 'creator-profile' poll.poll_creator.profile_slug poll.poll_creator.profile_uuid %}" class="text-decoration-none">@{{ poll.poll_creator.user.username }}</a></small>
+                {% endif %}                    
                 <div class="col-sm-8">
                     <h3>{{ poll.question }}</h3>            
                 </div>
@@ -36,7 +43,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-4">
-                    <h4>Voted:</h4>                    
+                    <h4>Voted: {{ poll.voted.all.count }}</h4>                    
                     <ul class="ex3 border">                        
                         {% for data in poll.voted.all %}                            
                             {% if data == request.user %}
@@ -44,12 +51,15 @@
                             {% else %}
                                 <li class="border border-dark p-1"><a href="{% url 'creator-profile' data.profile.profile_slug data.profile.profile_uuid %}" class="text-decoration-none">{{ data }}</a></li>
                             {% endif %}                                                            
-                        {% endfor %}                                                                                                                                                                                          
+                        {% endfor %}                                                                                                                                                                                                                
                     </ul>
                 </div>
             </div>
             <h5 class="fw-normal mt-3">Total: <span class="fw-bold">{{ poll.total }}</span></h5>
-            <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
+            <a href="{% url 'home' %}" class="btn btn-dark">Home</a>            
+            {% if not request.user in poll.voted.all and request.user != poll.poll_creator.user %}
+                <a href="{% url 'vote' poll.question_slug poll.poll_uuid %}" class="btn btn-success">Vote</a>       
+            {% endif %}                            
             </div>
         </div>
     </div>

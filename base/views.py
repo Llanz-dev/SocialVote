@@ -69,10 +69,13 @@ def result(request, poll_slug, poll_uuid):
 
 @login_required
 def edit(request, poll_slug, poll_uuid):
-    poll = Poll.objects.get(poll_uuid=poll_uuid)
+    poll = Poll.objects.get(poll_uuid=poll_uuid)        
     form = PollForm(instance=poll)
     current_signed_in = request.user.profile.profile_uuid
     creator = poll.poll_creator.profile_uuid    
+    theres_vote = True
+    if poll.question_one_count == 0 and poll.question_two_count == 0 and poll.question_three_count == 0:
+        theres_vote = False
     if request.method == 'POST':             
         form = PollForm(request.POST, request.FILES, instance=poll)
         if form.is_valid():
@@ -80,7 +83,7 @@ def edit(request, poll_slug, poll_uuid):
             form.save()
             return redirect('home')
 
-    context = {'poll': poll, 'form': form, 'current_signed_in': current_signed_in, 'creator': creator}
+    context = {'poll': poll, 'form': form, 'current_signed_in': current_signed_in, 'creator': creator, 'theres_vote': theres_vote}
     return render(request, 'base/edit.html', context)
 
 @login_required

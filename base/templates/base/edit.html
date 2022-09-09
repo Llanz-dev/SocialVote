@@ -34,7 +34,11 @@
             </div>    
             <a href="{% url 'home' %}" class="btn btn-light">Home</a>
             <button type="submit" class="btn btn-dark">Edit</button>
-            <small class="d-block mt-2">Do you want to clear the selected counts? click <a href="{% url 'clear_selected_count' poll.question_slug poll.poll_uuid %}">here</a></small>
+            
+            {% if theres_vote %}
+                <small class="d-block mt-2">Do you want to clear the selected counts? click <a href="{% url 'clear_selected_count' poll.question_slug poll.poll_uuid %}">here</a></small>                
+            {% endif %}
+                
             {% else %}                            
                 <h2>Oooopsss. You are not the owner of this poll <span class="text-danger">!</span></h2>
                 <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
