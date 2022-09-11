@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'base/bootstrap/css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'base/main.css' %}">
-    <title>Polls</title>
+    <title>Social Vote</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
         <div class="container-fluid">      
           {% if request.user.is_authenticated %}
-            <a class="navbar-brand" href="{% url 'home' %}">Poll Application</a>
+            <a class="navbar-brand" href="{% url 'home' %}">SocialVote</a>
           {% else %}
-            <a class="navbar-brand">Poll Application</a>
+            <a class="navbar-brand">SocialVote</a>
           {% endif %}            
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
