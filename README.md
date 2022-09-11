@@ -1,18 +1,55 @@
-Poll Application is where you can create a poll. You can only vote at others' once polls but not yours. The poll that you created can delete and edit.
 
-The technology used are the following: HTML, Bootstrap and Django.
+# SocialVote
 
-To run this project do the following: clone it open the CMD in project and then enter each one of the following: "virtual venv", "pip install django", "pip install Pillow", "pip install django-crispy-forms", "pip install django-widget-tweaks". Then run "python manage.py runserver"
+## Description
+SocialVote is a poll application where you can create your poll and also vote to other poll.
 
-Screenshots
-![Alt text](screenshots/sign-in.png?raw=true "Optional Title")
-![Alt text](screenshots/sign-up.png?raw=true "Optional Title")
-![Alt text](screenshots/create.png?raw=true "Optional Title")
-![Alt text](screenshots/home.png?raw=true "Optional Title")
-![Alt text](screenshots/profile.png?raw=true "Optional Title")
-![Alt text](screenshots/creator-profile.png?raw=true "Optional Title")
-![Alt text](screenshots/edit.png?raw=true "Optional Title")
-![Alt text](screenshots/vote.png?raw=true "Optional Title")
-![Alt text](screenshots/result.png?raw=true "Optional Title")
+- You sign up first and sign in. You can create a poll and add a picture with it. The poll that you created have a two button for you to delete and edit. Everybody can vote to your app and you could also vote to their poll.
+- The Django framework I used for my back-end because it's easy to maintain of the whole project and you can build a big project in a fast way. The database is easy to manage and batteries included for example, Free API, Easy Database Migrations, Default Admin section and more.
+- I find difficult sometimes to get the field of the ForeignKey, ManyToMany and OneToOne relationship. I hope to add this a change password for the user and a delete function for their profile and also to view on who vote in this choice.
 
-Contact Telegram: @Llanz_000
+## How to Install and Run the Project
+
+Install the SocialVote with the following:
+
+```bash
+  pip install -r requirements.txt
+  python manage.py runserver
+```
+
+## How to Use the Project
+
+#### Sign up first.
+![sign up](screenshots/sign-in.png?raw=true)
+#### Then sign in.
+![sign in](screenshots/sign-in.png?raw=true)
+#### Here is your home page. You will have a delete and edit button to your own poll. If you already vote to a poll, the vote button will disappear.
+![home](screenshots/home.png?raw=true)
+#### You can create your own poll. It depends on you if you want to put an image header.
+![create](screenshots/create.png?raw=true)
+#### Your sample profile on where you can update and upload your profile picture.
+![profile](screenshots/profile.png?raw=true)
+#### Just click the specific field on each below at where you wanna edit.
+![edit](screenshots/edit.png?raw=true)
+#### Select one vote among three option. From this example, the user choose the middle option (Modern Warfare). Remember you can only vote once.
+![vote](screenshots/vote.png?raw=true)
+#### It will increment the chosen vote. Your username will show on voted area if you already vote.
+![result](screenshots/result.png?raw=true)
+
+## Acknowledgements
+
+ - I started making this project in [Creating a Poll App in Django](https://www.youtube.com/watch?v=RMTVAIVrdtM&t=34s) and I add my own features to it.
+ - I want to thank [Pretty Printed](https://www.youtube.com/c/PrettyPrintedTutorials) youtube channel for making this simple and understandable project tutorial.
+ 
+
+## Badges
+![open source](https://img.shields.io/badge/Open%20Source-%F0%9F%92%9A-white)
+![GitHub contributors](https://img.shields.io/github/contributors/Llanz-dev/SocialVote)
+![downloads](https://img.shields.io/github/downloads/Llanz-dev/SocialVote/total)
+![django](https://img.shields.io/badge/django-4.1.1-brightgreen)
+![forks](https://img.shields.io/github/last-commit/Llanz-dev/SocialVote)
+![followers](https://img.shields.io/github/followers/Llanz-dev?style=social)
+![stars](https://img.shields.io/github/stars/Llanz-dev?style=social)
+![forks](https://img.shields.io/github/forks/Llanz-dev/SocialVote?style=social)
+
+
