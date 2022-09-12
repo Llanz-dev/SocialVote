@@ -20,7 +20,7 @@ Install the SocialVote with the following:
 ## How to Use the Project
 
 #### Sign up first.
-![sign up](screenshots/sign-in.png?raw=true)
+![sign up](screenshots/sign-up.png?raw=true)
 #### Then sign in.
 ![sign in](screenshots/sign-in.png?raw=true)
 #### Here is your home page. You will have a delete and edit button to your own poll. If you already vote to a poll, the vote button will disappear.
