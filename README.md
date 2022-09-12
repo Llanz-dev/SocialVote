@@ -4,9 +4,9 @@
 ## Description
 SocialVote is a poll application where you can create your poll and also vote to other poll.
 
-- You sign up first and sign in. You can create a poll and add a picture with it. The poll that you created have a two button for you to delete and edit. Everybody can vote to your app and you could also vote to their poll.
-- The Django framework I used for my back-end because it's easy to maintain of the whole project and you can build a big project in a fast way. The database is easy to manage and batteries included for example, Free API, Easy Database Migrations, Default Admin section and more.
-- I find difficult sometimes to get the field of the ForeignKey, ManyToMany and OneToOne relationship. I hope to add this a change password for the user and a delete function for their profile and also to view on who vote in this choice.
+- You sign up first and sign in. You can create a poll and add a picture with it. The poll that you created has two buttons for you to delete and edit. Everybody can vote on your app and you could also vote in their poll.
+- The Django framework I used for my back-end because it's easy to maintain the whole project and you can build a big project in a fast way. The database is easy to manage and batteries included, for example, Free API, Easy Database Migrations, Default Admin section, and more.
+- I find it difficult sometimes to get the field of the ForeignKey, ManyToMany, and OneToOne relationship. I hope to add a changed password for the user and a delete function for their profile and also to view who votes in this choice.
 
 ## How to Install and Run the Project
 
@@ -31,9 +31,9 @@ Install the SocialVote with the following:
 ![profile](screenshots/profile.png?raw=true)
 #### Just click the specific field on each below at where you wanna edit.
 ![edit](screenshots/edit.png?raw=true)
-#### Select one vote among three option. From this example, the user choose the middle option (Modern Warfare). Remember you can only vote once.
+#### Select one vote among three options. From this example, the user chooses the middle option (Modern Warfare). Remember you can only vote once.
 ![vote](screenshots/vote.png?raw=true)
-#### It will increment the chosen vote. Your username will show on voted area if you already vote.
+#### It will increment the chosen vote. Your username will show on the voted area if you already voted.
 ![result](screenshots/result.png?raw=true)
 
 ## Acknowledgements
