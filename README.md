@@ -4,7 +4,7 @@
 ## Description
 SocialVote is a poll application where you can create your poll and also vote to other poll.
 
-- You sign up first and sign in. You can create a poll and add a picture with it. The poll that you created has two buttons for you to delete and edit. Everybody can vote on your app and you could also vote in their poll.
+- I started making this project in [Creating a Poll App in Django](https://www.youtube.com/watch?v=RMTVAIVrdtM&t=34s) and I add my own features to it.
 - I find it difficult sometimes to get the field of the ForeignKey, ManyToMany, and OneToOne relationship. I hope to add a changed password for the user and a delete function for their profile and also to view who votes in this choice.
 
 ## Built With
@@ -42,10 +42,7 @@ Install the SocialVote with the following:
 ![result](screenshots/result.png?raw=true)
 
 ## Acknowledgements
-
- - I started making this project in [Creating a Poll App in Django](https://www.youtube.com/watch?v=RMTVAIVrdtM&t=34s) and I add my own features to it.
- - I want to thank [Pretty Printed](https://www.youtube.com/c/PrettyPrintedTutorials) youtube channel for making this simple and understandable project tutorial.
- 
+ - [Pretty Printed](https://www.youtube.com/c/PrettyPrintedTutorials)
 
 ## Badges
 ![open source](https://img.shields.io/badge/Open%20Source-%F0%9F%92%9A-white)
