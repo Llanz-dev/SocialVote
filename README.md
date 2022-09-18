@@ -7,7 +7,7 @@ SocialVote is a poll application where you can create your poll and also vote to
 - You sign up first and sign in. You can create a poll and add a picture with it. The poll that you created has two buttons for you to delete and edit. Everybody can vote on your app and you could also vote in their poll.
 - I find it difficult sometimes to get the field of the ForeignKey, ManyToMany, and OneToOne relationship. I hope to add a changed password for the user and a delete function for their profile and also to view who votes in this choice.
 
-## Build With
+## Built With
 - HTML
 - CSS
 - Bootstrap (5.1)
